@@ -1,9 +1,9 @@
 import ApiClient
-####################
+################################################################################
 # Author: HQ Liu
 # Description: Http client for vdm.sdsu.edu/data/api/pmapi.php
 # 
-####################
+################################################################################
 class PmapiClient(ApiClient.ApiClient):
 	"""
 		PmapiClient inheritates ApiClient.
@@ -15,6 +15,8 @@ class PmapiClient(ApiClient.ApiClient):
 	PM_PLATES='getPlates'
 	PM_GROWTH='getGrowth'
 	NULL_LIST=[]
+
+	#Initialization of the Object
 	def __init__(self):
 		super(PmapiClient,self).__init__()
 	def getBacteriaList(self,mid):
@@ -37,4 +39,3 @@ class PmapiClient(ApiClient.ApiClient):
 		return self.getFromApi(self.URN,self.PM_GROWTH,param,mid)
 	def getGrowth(self,param):
 		return self.getFromApi(self.URN,self.PM_GROWTH,param,None)
-	
