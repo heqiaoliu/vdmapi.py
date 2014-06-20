@@ -39,3 +39,8 @@ class PmapiClient(ApiClient.ApiClient):
 		return self.getFromApi(self.URN,self.PM_GROWTH,param,mid)
 	def getGrowth(self,param):
 		return self.getFromApi(self.URN,self.PM_GROWTH,param,None)
+	def reset(self):
+	    self.VDM_URL="localhost"
+	    self.URN="/vdm.js/test/pmapi-emu.php"
+
+
