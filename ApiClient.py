@@ -10,7 +10,7 @@ class ApiClient(object):
         temp=json.loads(conn.getresponse().read())
         if not temp["success"]
             raise ApiException(temp['error_message']
-        return temp["data"]
+        return temp
     def getNewConnection(self):
         return httplib.HTTPSConnection(self.VDM_URL)
     def sendRequest(self,conn, urn,rType, param, mid):
@@ -18,6 +18,8 @@ class ApiClient(object):
         conn.request(self.POST, urn,self.getQuery(rType,param,mid),self.HEADER)
     def getQuery(self,rType,param,mid):
         return "type="+rType+"&param="+json.dumps(param)+("" if (mid==None) else "&mid="+str(mid))
+    def resetURL(self,url):
+        this.VDM_URL=url
 
 class ApiException(Exception):
     def __init__(self,msg,code):
