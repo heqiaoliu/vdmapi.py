@@ -26,7 +26,7 @@ class PmapiClient(ApiClient.ApiClient):
 	def resetURN(self,urn):
 		self.URN=urn
 	def getFromPM(self,rType,param,mid):
-		return self.getFromApi(self.URN,rType,param,None)
+		return self.getFromApi(self.URN,rType,param,mid)
 	def getBacteriaList(self,mid):
 		return self.getFromPM(self.PM_BACTLIST,self.NULL_LIST,mid)
 	def getBacteria(self,param,mid):
