@@ -8,8 +8,8 @@ class ApiClient(object):
         conn=self.getNewConnection()
         self.sendRequest(conn,urn,rType,param,mid)
         temp=json.loads(conn.getresponse().read())
-        if not temp["success"]
-            raise ApiException(temp['error_message']
+        if not temp["success"]:
+            raise ApiException(temp['error_message'],temp['error_code'])
         return temp
     def getNewConnection(self):
         return httplib.HTTPSConnection(self.VDM_URL)
