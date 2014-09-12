@@ -10,7 +10,7 @@ class ApiClient(object):
         temp=json.loads(conn.getresponse().read())
         if not temp["success"]:
             raise ApiException(temp['error_message'],temp['error_code'])
-        return temp
+        return temp["mid"],temp["data"]
     def getNewConnection(self):
         return httplib.HTTPSConnection(self.VDM_URL)
     def sendRequest(self,conn, urn,rType, param, mid):

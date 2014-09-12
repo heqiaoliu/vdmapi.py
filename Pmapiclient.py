@@ -23,7 +23,7 @@ class PmapiClient(ApiClient.ApiClient):
 	#Initialization of the Object
 	def __init__(self):
 		super(PmapiClient,self).__init__()
-	def resetURN(self,urn):
+	def resetURN(self,urn):	
 		self.URN=urn
 	def getFromPM(self,rType,param,mid):
 		return self.getFromApi(self.URN,rType,param,mid)
@@ -45,5 +45,23 @@ class PmapiClient(ApiClient.ApiClient):
 		return self.getFromPM(self.PM_PLATE,param,mid)
 	def getGrowth(self,param,mid):
 		return self.getFromPM(self.PM_GROWTH,param,mid)
+	def getData(self,obj):
+		return obj['data']
 
-
+class PmDataFormatter(PmapiClient):
+	def __init__(self):
+		super(PmDataFormatter,self).__init__()
+	def getCurveSet(self,bid,plateid,wid):
+		empty,bactBuffer=self.getBacteria([bid],None)
+		bactBuffer=self.getValue(bid,bactBuffer)
+		bacteriaId=bactBuffer['bacteria_id']
+		empty,expBuffer=self.getExperiment([bacteriaId],None)
+		expBuffer=self.getData(self.getValue(str(bacteriaId),expBuffer))
+		paramBuffer=[]
+		for exp in expBuffer:
+			if exp["plate_name"] == plateid:
+				paramBuffer.append([exp['experiment_id'],wid])
+		empty,curves=self.getGrowth(paramBuffer,None)
+		return curves
+	def getValue(self,key,obj):
+		return obj[key]
